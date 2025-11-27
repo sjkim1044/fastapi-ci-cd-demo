@@ -19,7 +19,9 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh '''
-                  pip3 install -r requirements.txt
+                  python3 -m venv .venv
+		  .venv/bin/pip install --upgrade pip
+		  .venv/bin/pip install -r requirements.txt
                 '''
             }
         }
@@ -28,7 +30,7 @@ pipeline {
             steps {
                 sh '''
                   echo "=== Running pytest ==="
-                  pytest -q
+                  .venv/bin/pytest -q
                 '''
             }
         }
